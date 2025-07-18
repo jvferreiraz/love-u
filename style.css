@@ -1,0 +1,252 @@
+/* Layout principal lado a lado */
+#main-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 60vh;
+  min-height: 260px;
+  gap: 2vw;
+}
+
+#mascot {
+  width: 110px;
+  max-width: 30vw;
+  height: auto;
+  margin-right: 2vw;
+  z-index: 10;
+  user-select: none;
+}
+
+@media (max-width: 600px) {
+  #main-flex {
+    flex-direction: column;
+    height: auto;
+    gap: 0;
+    margin-top: 10vw;
+  }
+  #mascot {
+    margin: 0 0 2vw 0;
+    width: 80px;
+    max-width: 40vw;
+  }
+}
+/* Coração pixelado animado preenchendo */
+#pixel-heart-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#pixel-heart {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 16px #ff3c3c) brightness(1.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+/* Animação de preenchimento da esquerda para a direita */
+#pixel-heart-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  z-index: 9;
+  pointer-events: none;
+  animation: heartFillLeft 2.2s cubic-bezier(.5,1.8,.5,1) forwards;
+}
+@keyframes heartFillLeft {
+  0% { left: 0; width: 100%; }
+  80% { left: 100%; width: 0%; }
+  100% { left: 100%; width: 0%; opacity: 0; }
+}
+/* Coração de emojis */
+#emoji-heart {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  gap: 2px;
+  width: 120px;
+  height: 120px;
+  justify-items: center;
+  align-items: center;
+  font-size: 1.7em;
+  z-index: 8;
+  background: none;
+}
+.emoji-heart-cell {
+  opacity: 0;
+  transition: opacity 0.2s;
+  will-change: opacity;
+}
+.emoji-heart-cell.visible {
+  opacity: 1;
+  animation: popHeart 0.3s cubic-bezier(.5,1.8,.5,1);
+}
+@keyframes popHeart {
+  0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+  60% { transform: scale(1.2) rotate(8deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@media (max-width: 600px) {
+  #emoji-heart {
+    width: 60vw;
+    height: 60vw;
+    min-width: 80px;
+    min-height: 80px;
+    max-width: 160px;
+    max-height: 160px;
+    font-size: 5vw;
+  }
+}
+@media (max-width: 600px) {
+  #pixel-heart-container {
+    width: 60vw;
+    height: 60vw;
+    min-width: 80px;
+    min-height: 80px;
+    max-width: 160px;
+    max-height: 160px;
+  }
+}
+
+@keyframes pixelHeartJump {
+  0%   { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  10%  { transform: translate(-50%, -60%) scale(1.15) rotate(-8deg); }
+  20%  { transform: translate(-50%, -65%) scale(1.2) rotate(8deg); }
+  30%  { transform: translate(-50%, -60%) scale(1.15) rotate(-8deg); }
+  40%  { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+}
+
+@keyframes pixelHeartGlow {
+  from { filter: drop-shadow(0 0 8px #ff3c3c) brightness(1.1); }
+  to   { filter: drop-shadow(0 0 32px #fff) brightness(1.3); }
+}
+
+@media (max-width: 600px) {
+  #pixel-heart {
+    width: 60vw;
+    height: 60vw;
+    min-width: 80px;
+    min-height: 80px;
+    max-width: 160px;
+    max-height: 160px;
+  }
+}
+body {
+  margin: 0;
+  background: #fefefe;
+  overflow: hidden;
+  font-family: sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+
+@media (max-width: 600px) {
+  .center-heart {
+    width: 90vw;
+    height: 90vw;
+    max-width: 96vw;
+    max-height: 96vw;
+    min-width: 180px;
+    min-height: 180px;
+  }
+  .heart, .empty {
+    width: 10vw;
+    height: 10vw;
+    min-width: 16px;
+    min-height: 16px;
+    max-width: 28px;
+    max-height: 28px;
+  }
+  .mascot {
+    width: 80px;
+    left: 10px;
+    bottom: 10px;
+  }
+  #mensagem {
+    font-size: 1.2em;
+    top: 70%;
+    padding: 0 10px;
+    text-align: center;
+  }
+}
+
+
+
+
+
+
+@keyframes pulse {
+  from { transform: scale(1); opacity: 0.6; }
+  to { transform: scale(1.2); opacity: 1; }
+}
+
+.falling-heart {
+  position: fixed;
+  top: 0;
+  width: 15px;
+  height: 15px;
+  background-color: pink;
+  border-radius: 50%;
+  animation: fall linear;
+  z-index: 1;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.mascot {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 120px;
+  animation: fadeIn 2s ease-in;
+  z-index: 10;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}#mensagem {
+  position: fixed;
+  top: 65%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.2em;
+  color: #e40404;
+  font-weight: bold;
+  opacity: 0;
+  animation: aparecer 2s ease-in-out 2.5s forwards;
+  z-index: 6;
+}
+
+@keyframes aparecer {
+  from {
+    transform: translateX(-50%) scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+}
+
